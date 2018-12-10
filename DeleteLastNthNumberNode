@@ -1,0 +1,59 @@
+public class DeleteLastNthNumberNode {
+
+    public static void main(String[] args) {
+        Node head0 = new Node(1);
+        Node node1 = new Node(3);
+        Node node2 = new Node(5);
+        Node node3 = new Node(6);
+        Node node4 = new Node(7);
+
+        head0.setNext(node1);
+        node1.setNext(node2);
+        node2.setNext(node3);
+        node3.setNext(node4);
+
+        Node head = deleteNthNodeFromEnd(head0, 2);
+
+        printNode(head);
+
+    }
+
+    public static void printNode(Node head) {
+        if (head == null) {
+            return;
+        }
+
+        Node curNode = head;
+        while (curNode != null) {
+            System.out.println("++++++++++++++"+curNode.getValue());
+            curNode = curNode.getNext();
+        }
+    }
+
+    public static Node deleteNthNodeFromEnd(Node l, int n) {
+        if (l == null) {
+            return null;
+        }
+        Node head = l;
+
+        Node curNode = head;
+        Node preNode = head;
+        for (int i = 0; i < n; i++) {
+            curNode = curNode.getNext();
+        }
+
+        if (curNode == null) {
+            return preNode.getNext();
+        }
+
+        while (curNode.getNext() !=  null) {
+            curNode = curNode.getNext();
+            preNode = preNode.getNext();
+        }
+
+        preNode.setNext(preNode.getNext().getNext());
+
+        return head;
+
+    }
+}
