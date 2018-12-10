@@ -1,0 +1,41 @@
+public class GetMiddleNode {
+    public static void main(String[] args) {
+        Node head0 = new Node(1);
+        Node node1 = new Node(3);
+        Node node2 = new Node(5);
+        Node node3 = new Node(6);
+        Node node4 = new Node(7);
+
+        head0.setNext(node1);
+        node1.setNext(node2);
+        node2.setNext(node3);
+        node3.setNext(node4);
+
+        printNode(getMiddleNode(head0));
+
+    }
+
+    public static void printNode(Node head) {
+        if (head == null) {
+            return;
+        }
+
+        System.out.println(head.getValue());
+    }
+
+    public static Node getMiddleNode(Node l) {
+        if (l == null) {
+            return null;
+        }
+
+        Node head = l;
+        Node fast = head;
+        Node slow = head;
+
+        while (fast != null && fast.getNext() != null) {
+            fast = fast.getNext().getNext();
+            slow = slow.getNext();
+        }
+        return slow;
+    }
+}
