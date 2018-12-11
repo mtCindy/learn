@@ -1,0 +1,27 @@
+public class SqrtTest {
+    public static int sqrt(int n){
+        int left=1,right=(n+1)/2;
+
+        while(left<right){
+            int mid=(left+right)/2;
+            int result= mid*mid;
+            if(result==n){
+                return mid;
+            }
+            else if(result>n){
+                right=mid-1;
+            }
+            else if(result<n){
+                left=mid+1;
+            }
+        }
+        int temp=right*right;
+        if(temp>n)
+            return right-1;
+        else return right;
+
+    }
+    public static void main(String[] args) {
+        System.out.println(sqrt(100));
+    }
+    }
