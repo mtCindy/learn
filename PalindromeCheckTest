@@ -1,0 +1,128 @@
+public class PalindromeCheckTest {
+
+    public static Node getMiddleNode(Node head) {
+        if (head == null) {
+            return null;
+        }
+
+        Node fast = head;
+        Node slow = head;
+
+        while (fast.getNext() != null) {
+            fast = fast.getNext().getNext();
+            slow = slow.getNext();
+        }
+        return slow;
+    }
+
+    public static void palindromeCheck(Node head) {
+        if (head == null) {
+            return;
+        }
+
+        Node middle = getMiddleNode(head);
+        Node l1 = middle.getNext();
+        middle.setNext(null);
+        Node l2 = head;
+
+//        print(l1);
+//        System.out.println("---------------------+++++++++++++++++++++++++++++++++++++++++");
+//        print(l2);
+//        System.out.println("---------------------+++++++++++++++++++++++++++++++++++++++++");
+        l1 = reverse(l1);
+//        print(l1);
+        boolean result = check(l1, l2);
+        System.out.println(result);
+    }
+
+    public static boolean check(Node l1, Node l2) {
+        if (l1 == null || l2 == null) {
+            return false;
+        }
+
+        Node temp1 = l1;
+        Node temp2 = l2;
+        while (temp1 != null && temp2 != null) {
+            if (!l1.getValue().equals(l2.getValue())) {
+                return false;
+            }
+            temp1 = temp1.getNext();
+            temp2 = temp2.getNext();
+        }
+        return true;
+    }
+
+    public static void print(Node head) {
+        if (head == null) {
+            return;
+        }
+
+        Node temp = head;
+        while (temp != null) {
+            System.out.println(temp.getValue());
+            temp = temp.getNext();
+        }
+    }
+
+    public static Node reverse(Node head) {
+        if (head == null) {
+            return head;
+        }
+
+        Node pre = head;
+        Node cur = head.getNext();
+
+
+        while (cur != null) {
+           Node temp = cur.getNext();
+            cur.setNext(pre);
+            pre = cur;
+            cur = temp;
+        }
+        head.setNext(null);
+        return pre;
+    }
+
+    public static void main(String[] args) {
+        Node head = new Node("a");
+        Node node1 = new Node("b");
+        Node node2 = new Node("b");
+        Node node3 = new Node("c");
+        Node node4 = new Node("b");
+        Node node5 = new Node("b");
+        Node node6 = new Node("a");
+        head.setNext(node1);
+        node1.setNext(node2);
+        node2.setNext(node3);
+        node3.setNext(node4);
+        node4.setNext(node5);
+        node5.setNext(node6);
+
+        palindromeCheck(head);
+    }
+
+    static class Node {
+        private String value;
+        private Node next;
+
+        public Node(String value) {
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public void setNext(Node next) {
+            this.next = next;
+        }
+
+    }
+}
