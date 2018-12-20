@@ -1,0 +1,30 @@
+public class DemoServer extends Thread {
+
+    private ServerSocket serverSocket;
+    private static Executor executor = Executors.newFixedThreadPool(8);
+    public int getPort() {
+        return serverSocket.getLocalPort();
+    }
+
+    @Override
+    public void run() {
+        try {
+            serverSocket = new ServerSocket(0);
+            while (true) {
+                Socket socket = serverSocket.accept();
+                RequestHandler requestHandler = new RequestHandler(socket);
+                executor.execute(requestHandler);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+          if (serverSocket != null) {
+              try {
+                  serverSocket.close();
+              } catch (IOException e) {
+                  e.printStackTrace();
+              }
+          }
+        }
+    }
+}
