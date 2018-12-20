@@ -1,0 +1,18 @@
+public class RequestHandler extends Thread {
+
+    private Socket socket;
+
+    public RequestHandler(Socket socket) {
+        this.socket = socket;
+    }
+
+    @Override
+    public void run() {
+        try (PrintWriter printWriter = new PrintWriter(socket.getOutputStream());) {
+            printWriter.print("hello world");
+            printWriter.flush();
+        } catch (Exception e) {
+
+        }
+    }
+}
