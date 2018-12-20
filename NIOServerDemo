@@ -1,0 +1,25 @@
+public class NIOServerDemo extends Thread {
+
+    @Override
+    public void run() {
+
+        try (Selector selector = Selector.open();
+             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();) {
+            serverSocketChannel.bind(new InetSocketAddress(InetAddress.getLocalHost(), 8888));
+            serverSocketChannel.configureBlocking(false);
+            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+            while (true) {
+                selector.select();
+                Set<SelectionKey> selectionKeys = selector.selectedKeys();
+                Iterator<SelectionKey> iterator = selectionKeys.iterator();
+                while (iterator.hasNext()) {
+                    SelectionKey selectionKey = iterator.next();
+
+                }
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+}
